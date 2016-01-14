@@ -33,71 +33,38 @@
     <script src="./assets/js/vendor/backbone.js"></script>
     <script src="./assets/js/vendor/backbone.marionette.js"></script>
 
-    <script type="text/javascript">
-      var ContactManager = new Marionette.Application();
-      
-      // -- Define Model
-      ContactManager.Contact = Backbone.Model.extend({});
-      // -- Define Model Collection, give it Model
-      ContactManager.ContactCollection = Backbone.Collection.extend({
-        model: ContactManager.Contact
-      });
+    <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/entities/contact.js"></script>
 
-      // -- Define ItemView, give it template
-      ContactManager.ContactItemView = Marionette.ItemView.extend({
-        tagName: 'li',
-        template: "#contact-list-item"
-      });
 
-      // -- Define Collection View, give it itemView
-      ContactManager.ContactsView = Marionette.CollectionView.extend({
-        tagName: 'ul',
-        childView: ContactManager.ContactItemView
-      });
+  <script>
+  // -- Define ItemView, give it template
+  ContactManager.ContactItemView = Marionette.ItemView.extend({
+    tagName: 'li',
+    template: "#contact-list-item"
+  });
 
-      // -- Define Region Manager, give el and regions
-      ContactManager.on("before:start", function(){
-        var RegionContainer = Marionette.LayoutView.extend({
-          el: "#app-container",
-      
-          regions: {
-            main: "#main-region"
-          }
-        });
-    
-        ContactManager.regions = new RegionContainer();
-      });
-      
-      // On start instantiate all Classes with data
-      ContactManager.on("start", function() {
+  // -- Define Collection View, give it itemView
+  ContactManager.ContactsView = Marionette.CollectionView.extend({
+    tagName: 'ul',
+    childView: ContactManager.ContactItemView
+  });
 
-        var contacts = new ContactManager.ContactCollection([
-        {
-          firstName: "Bob",
-          lastName: "Brigham",
-          phoneNumber: "555-0163"
-        },
-        {
-          firstName: "Alice",
-          lastName: "Arten",
-          phoneNumber: "555-0184"
-        },
-        {
-          firstName: "Charlie",
-          lastName: "Campbell",
-          phoneNumber: "555-0129"
-        }
-         ]);
+  
+  // On start instantiate all Classes with data
+  ContactManager.on("start", function() {
 
-        var contactsListView = new ContactManager.ContactsView({
-          collection: contacts
-        });
-      
-      
-        ContactManager.regions.main.show(contactsListView);
-      });
-      
-        ContactManager.start();
-    </script>
+    var contacts = ContactManager.request('contact:entities');
+
+    var contactsListView = new ContactManager.ContactsView({
+      collection: contacts
+    });
+  
+    ContactManager.regions.main.show(contactsListView);
+  });
+  ContactManager.start();
+  </script>
+  
+
   </body>
 </html>
