@@ -35,34 +35,12 @@
 
     <script src="./assets/js/app.js"></script>
     <script src="./assets/js/entities/contact.js"></script>
+    <script src="./assets/js/apps/contacts/list/list_view.js"></script>
+    <script src="./assets/js/apps/contacts/list/list_controller.js"></script>
 
 
   <script>
-  // -- Define ItemView, give it template
-  ContactManager.ContactItemView = Marionette.ItemView.extend({
-    tagName: 'li',
-    template: "#contact-list-item"
-  });
-
-  // -- Define Collection View, give it itemView
-  ContactManager.ContactsView = Marionette.CollectionView.extend({
-    tagName: 'ul',
-    childView: ContactManager.ContactItemView
-  });
-
-  
-  // On start instantiate all Classes with data
-  ContactManager.on("start", function() {
-
-    var contacts = ContactManager.request('contact:entities');
-
-    var contactsListView = new ContactManager.ContactsView({
-      collection: contacts
-    });
-  
-    ContactManager.regions.main.show(contactsListView);
-  });
-  ContactManager.start();
+    ContactManager.start();
   </script>
   
 
