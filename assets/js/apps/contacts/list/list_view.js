@@ -3,7 +3,15 @@ ContactManager.module('ContactsApp.List', function(List, ContactManager, Templat
 	// -- Define ItemView, give it template
   List.Contact = Marionette.ItemView.extend({
     tagName: 'tr',
-    template: "ContactManager.ContactsApp.List.Templates.contactView"
+    template: 'ContactManager.ContactsApp.List.Templates.contactView',
+
+    events: {
+      'click': 'highlightName'
+    },
+
+    highlightName: function() {
+      this.$el.toggleClass('warning');
+    }
   });
 
   // -- Define Collection View, give it itemView
@@ -12,7 +20,7 @@ ContactManager.module('ContactsApp.List', function(List, ContactManager, Templat
     template: 'ContactManager.ContactsApp.List.Templates.contactList',
     className: 'table table-hover',
     childView: List.Contact,
-    childViewContainer: "tbody"
+    childViewContainer: 'tbody'
   });
 
 });
