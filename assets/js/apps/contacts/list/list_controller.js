@@ -9,8 +9,14 @@ ContactManager.module('ContactsApp.List', function(List, ContactManager, Backbon
 				collection: contacts
 			});
 
+			contactsListView.on('childview:contact:delete', function(childView, model) {
+				contacts.remove(model)
+			});
+
 			return ContactManager.regions.main.show(contactsListView);
-		}
+		},
+
+
 
 	}
 

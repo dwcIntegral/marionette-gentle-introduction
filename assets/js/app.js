@@ -13,6 +13,7 @@ ContactManager.on("before:start", function(){
   ContactManager.regions = new RegionContainer();
 });
 
+// -- Set On Start
 ContactManager.on("start", function(){
   ContactManager.ContactsApp.List.Controller.listContacts();
 });
