@@ -1,0 +1,13 @@
+ContactManager.module("ContactsApp", function(ContactsApp, ContactManager, Backbone, Marionette, $, _){
+    ContactsApp.Router = Marionette.RouterApp.extend({
+        appRoutes = {
+            contacts: "listcontacts"
+        }
+
+        var API = {
+            listContacts: function() {
+                console.log('')
+            }
+        }
+    });
+});

@@ -7,12 +7,18 @@ ContactManager.module('ContactsApp.List', function(List, ContactManager, Templat
 
     events: {
       'click': 'highlightName',
-      'click button.js-delete': 'deleteClicked'
+      'click button.js-delete': 'deleteClicked',
+      'click a.js-show': 'showClicked'
     },
 
     highlightName: function(e) {
       e.preventDefault();
       this.$('td').toggleClass('warning');
+    },
+
+    showClicked: function(e) {
+      e.preventDefault();
+      this.trigger('contact:show', this.model);
     },
 
     deleteClicked: function(e) {
