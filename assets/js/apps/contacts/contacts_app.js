@@ -26,11 +26,10 @@ ContactManager.module("ContactsApp", function(ContactsApp, ContactManager, Backb
       API.showContact(id);
     });
     
-    ContactsApp.on("start", function(){ new ContactsApp.Router({
-      controller: API
+    ContactsApp.on("start", function(){ 
+      new ContactsApp.Router({
+        controller: API
+      });
     });
-
-
-
-  });
+    
 });

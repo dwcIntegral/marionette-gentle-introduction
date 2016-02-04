@@ -9,4 +9,7 @@ ContactManager.module('ContactsApp.Show.Templates', function(Templates, ContactM
 			'<%- phoneNumber %>' + 
 		'</p>';
 
+	Templates.missingContactView = 
+	'<div class="alert alert-error">This contact doesn\'t exist !</div>';
+
 });
