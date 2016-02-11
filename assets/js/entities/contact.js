@@ -1,15 +1,23 @@
 ContactManager.module("Entities", function(Entities, ContactManager, Backbone, Marionette, $, _){
 
 	// -- Define Model
-	Entities.Contact = Backbone.Model.extend({});
+	Entities.Contact = Backbone.Model.extend({
+		urlRoot: "contacts"
+	});
 	
+	// -- Define Storage
+	Entities.configureStorage("ContactManager.Entities.Contact");
+
 	// -- Define Model Collection, give it Model
 	Entities.ContactCollection = Backbone.Collection.extend({
+		url: "contacts",
 	  model: Entities.Contact,
 	  comparator: function(contact) {
 	    return contact.get("firstName") + " " + contact.get("lastName");
 	  }
 	});
+
+	Entities.configureStorage("ContactManager.Entities.ContactCollection");
 
 	var contacts;
 
@@ -22,19 +30,37 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
 			{ id: 3, firstName: "Charlie", lastName: "Campbell",
 			phoneNumber: "555-0129" }
 		]);
+		contacts.forEach(function(contact){ 
+			contact.save();
+		});
+		return contacts;
 	}
 
 	var API = {
 		getContactEntities: function(){
-			if(contacts === undefined){
-				initializeContacts();
+			var contacts = new Entities.ContactCollection();
+			contacts.fetch();
+
+			if(contacts.length === 0){
+      	// if we don't have any contacts yet, create some for convenience
+				return initializeContacts();
 			}
 			return contacts;
+		},
+
+		getContactEntity: function(id) {
+			var contact = new Entities.Contact({id: id});
+			contact.fetch();
+			return contact;
 		}
 	}
 
 	ContactManager.reqres.setHandler("contact:entities", function(){
 		return API.getContactEntities();
+	});
+
+	ContactManager.reqres.setHandler("contact:entity", function(id) {
+		return API.getContactEntity(id);
 	});
 
 });
